@@ -7,3 +7,4 @@ Route.allInstances()->select(active = true)->collect(
 		)
 	)
 )
+-- todocm: could reformulate these queries as invariants, following the descriptions in https://link-springer-com.ub-proxy.fernuni-hagen.de/article/10.1007/s10270-016-0571-8

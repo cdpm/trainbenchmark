@@ -68,8 +68,18 @@ task individualBenchmark(dependsOn: 'classes', type: JavaExec) {
 	classpath = sourceSets.main.runtimeClasspath
 }
 
+task eclipseOclBenchmark(dependsOn: 'classes', type: JavaExec) {
+	main = 'EclipseOclBenchmarkScript'
+	classpath = sourceSets.main.runtimeClasspath
+}
+
 task generate(dependsOn: 'classes', type: JavaExec) {
 	main = 'GeneratorScript'
+	classpath = sourceSets.main.runtimeClasspath
+}
+
+task generateEmf(dependsOn: 'classes', type: JavaExec) {
+	main = 'EmfGeneratorScript'
 	classpath = sourceSets.main.runtimeClasspath
 }
 

@@ -2,6 +2,11 @@
 @GenModel(bundleManifest="false",
     modelDirectory="trainbenchmark-format-emf-model/build/xcore/main",
     complianceLevel="8.0")
+	// featureDelegation "Reflective"
+	// rootExtendsClass DefaultPersistentEObject.class.getName();
+	// rootExtendsInterface PersistentEObject.class.getName();
+	// modelPluginVariables "NEOEMF=fr.inria.atlanmod.neoemf.core"
+	// see https://github.com/atlanmod/NeoEMF/blob/master/plugins/eclipse/bundles/ui/src/main/java/fr/inria/atlanmod/neoemf/eclipse/ui/importer/GenModelAdapter.java
 package hu.bme.mit.trainbenchmark.railway
 
 abstract class RailwayElement {
