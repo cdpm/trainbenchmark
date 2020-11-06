@@ -1,0 +1,7 @@
+
+
+build/run train benchmark:
+./scripts/build.sh
+cd trainbenchmark-scripts/ && ../gradlew initScripts
+./scripts/run.sh
+How to run a single benchmark?
