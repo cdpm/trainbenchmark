@@ -15,39 +15,22 @@ def ec = new ExecutionConfig(4000, 6000)
 def minSize = 1
 def maxSize = 2048
 
-def scenarios = [
-	Scenario.BATCH,
-	Scenario.INJECT,
-	Scenario.REPAIR,
-]
+println "starting"
 
-def formats = [
-	new EmfGeneratorConfigBuilder(),
-	// new Neo4jGraphGeneratorConfigBuilder().setGraphFormat(Neo4jGraphFormat.CSV),
-	// new Neo4jGraphGeneratorConfigBuilder().setGraphFormat(Neo4jGraphFormat.GRAPHML),
-	// new TinkerGraphGeneratorConfigBuilder().setGraphFormat(TinkerGraphFormat.GRAPHML),
-	// new RdfGeneratorConfigBuilder().setFormat(RdfFormat.TURTLE).setInferred(true),
-	// new RdfGeneratorConfigBuilder().setFormat(RdfFormat.TURTLE).setInferred(false),
-	// new SqlGeneratorConfigBuilder(),
-]
+try {
+	for (def size = minSize; size <= maxSize; size *= 2) {
+		println("Scenario: ${Scenario.BATCH}, size: ${size}")
 
-for (scenario in scenarios) {
-	formats.each { generatorConfigBuilder ->
-		try {
-			for (def size = minSize; size <= maxSize; size *= 2) {
-				println("Scenario: ${scenario}, size: ${size}")
+		def configBase = new GeneratorConfigBase(Scenario.BATCH, size)
+		def generatorConfigBuilder = new EmfGeneratorConfigBuilder()
+		def config = generatorConfigBuilder.setConfigBase(configBase).createConfig()
 
-				def configBase = new GeneratorConfigBase(scenario, size)
-				def config = generatorConfigBuilder.setConfigBase(configBase).createConfig()
-
-				def exitValue = GeneratorRunner.run(config, ec)
-				if (exitValue != 0) {
-					println "Timeout or error occured, skipping models for larger sizes. Error code: ${exitValue}"
-					break
-				}
-			}
-		} catch (all) {
-			println "Exception occured during execution."
+		def exitValue = GeneratorRunner.run(config, ec)
+		if (exitValue != 0) {
+			println "Timeout or error occured, skipping models for larger sizes. Error code: ${exitValue}"
+			break
 		}
 	}
+} catch (Exception e) {
+	println "Exception occured during execution: ${e}"
 }

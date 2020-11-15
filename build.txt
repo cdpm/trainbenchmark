@@ -7,5 +7,7 @@ cd trainbenchmark-scripts/ && ../gradlew initScripts
 How to run a single benchmark?
 
 
-./gradlew shadowJar generate eclipseOclBenchmark
+./gradlew shadowJar generateEmf eclipseOclBenchmark
+
+./gradlew generateEmf
 
